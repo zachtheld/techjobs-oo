@@ -1,6 +1,6 @@
 package org.launchcode.controllers;
 
-import org.launchcode.models.Job;
+import org.launchcode.models.*;
 import org.launchcode.models.forms.JobForm;
 import org.launchcode.models.data.JobData;
 import org.springframework.stereotype.Controller;
@@ -45,17 +45,18 @@ public class JobController {
 
         if (errors.hasErrors()) {
             return "new-job";
+        } else {
+            String jobName = jobForm.getName();
+            Employer employerName = jobData.getEmployers().findById(jobForm.getEmployerId());
+            Location locationName = jobData.getLocations().findById(jobForm.getLocationId());
+            CoreCompetency skillType = jobData.getCoreCompetencies().findById(jobForm.getCoreCompetencyId());
+            PositionType posType = jobData.getPositionTypes().findById(jobForm.getPositionTypeId());
+
+            Job newJob = new Job(jobName, employerName, locationName, posType, skillType);
+            jobData.add(newJob);
+
+            return "redirect:/job?id=" + newJob.getId();
         }
-        Job job = new Job();
-        job.setName(jobForm.getName());
-        job.setEmployer(jobForm.getEmployers().get(jobForm.getEmployerId()));
-        job.setLocation(jobForm.getLocations().get(jobForm.getLocationId()));
-        job.setCoreCompetency(jobForm.getCoreCompetencies().get(jobForm.getCoreCompetencyId()));
-        job.setPositionType(jobForm.getPositionTypes().get(jobForm.getPositionTypeId()));
-        jobData.add(job);
-
-        return "redirect:/job?id="+job.getId();
-
     }
 
 }

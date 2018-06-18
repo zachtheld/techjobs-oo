@@ -14,23 +14,23 @@
         <table class="job-listing">
             <tr>
                 <th>Name</th>
-                <td th:text="${job.name}"></td>
+                <td th:text="*{name}"></td>
             </tr>
             <tr>
                 <th>Employer</th>
-                <td th:text="${job.employer}"></td>
+                <td th:text="*{employer}"></td>
             </tr>
             <tr>
                 <th>Location</th>
-                <td th:text="${job.location}"></td>
+                <td th:text="*{location}"></td>
             </tr>
             <tr>
                 <th>Position Type</th>
-                <td th:text="${job.positionType}"></td>
+                <td th:text="*{positionType}"></td>
             </tr>
             <tr>
                 <th>Skill</th>
-                <td th:text="${job.coreCompetency}"></td>
+                <td th:text="*{coreCompetency}"></td>
             </tr>
         </table>
     </div>
